@@ -10,7 +10,7 @@ from src.domain.enums.status_code.enum import InternalCode
 from src.domain.models.broker_member.model import ExchangeMemberModel
 from src.domain.response.model import ResponseModel
 from src.services.jwt_service.service import JWTService
-from src.services.update_broker_member.service import UpdateBrokerMember
+from src.services.update_broker_member.service import UpdateExchangeMember
 from src.domain.exceptions.exceptions import (
                                         InvalidUsOnboardingStep,
                                         InvalidBrOnboardingStep,
@@ -34,7 +34,7 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         exchange_member = ExchangeMemberModel(**request_body.json).dict()
         payload = {"x-thebes-answer": jwt_data}
         payload.update(exchange_member)
-        service_response = await UpdateBrokerMember.update_exchange_member_us(
+        service_response = await UpdateExchangeMember.update_exchange_member_us(
             thebes_answer=thebes_answer, jwt_data=payload
         )
 
