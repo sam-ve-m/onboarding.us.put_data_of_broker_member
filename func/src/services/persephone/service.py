@@ -13,7 +13,7 @@ from src.domain.models.broker_member.model import ExchangeMemberTemplates
 class SendToPersephone:
 
     @classmethod
-    async def register_user_exchange_member_log(cls, unique_id: str, exchange_member: str):
+    async def register_user_exchange_member_log(cls, unique_id: str, exchange_member: bool):
 
         (
             sent_to_persephone,
@@ -25,7 +25,7 @@ class SendToPersephone:
                 exchange_member=exchange_member,
                 unique_id=unique_id,
             ),
-            schema_name="prospect_user_schema",
+            schema_name="user_exchange_member_us_schema",
         )
         if sent_to_persephone is False:
             Gladsheim.error(

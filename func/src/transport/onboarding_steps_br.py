@@ -19,20 +19,10 @@ class ValidateOnboardingStepsBR:
 
     @classmethod
     def __get_onboarding_steps_br(cls, thebes_answer: str):
-        # headers = {'x-thebes-answer': "{}".format(thebes_answer)}
+        headers = {'x-thebes-answer': "{}".format(thebes_answer)}
         try:
-            # Todo - Fission route not yet deployed to access by http requests
-            # steps_br_response = requests.get(cls.onboarding_steps_br_url, headers=headers)
-
-            response = {'terms': True,
-                        'user_document_validator': True,
-                        'politically_exposed': True,
-                        'exchange_member': True,
-                        'company_director': True,
-                        'external_fiscal_tax_confirmation': True,
-                        'employ': True,
-                        'time_experience': True,
-                        'current_step': 'finished'}
+            steps_br_response = requests.get(cls.onboarding_steps_br_url, headers=headers)
+            response = steps_br_response.json().get("result")
             return response
 
         except ErrorOnGettingDataFromStepsBr as error:

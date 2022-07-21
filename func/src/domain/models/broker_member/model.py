@@ -10,7 +10,7 @@ class ExchangeMemberTemplates:
 
     @classmethod
     def exchange_member_schema_template(
-            cls, exchange_member: str, unique_id: str
+            cls, exchange_member: bool, unique_id: str
     ) -> dict:
         broker_member_template = {
             "unique_id": unique_id,
