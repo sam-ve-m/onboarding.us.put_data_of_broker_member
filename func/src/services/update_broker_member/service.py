@@ -1,12 +1,9 @@
 import asyncio
-
-from decouple import config
-from starlette import status
-
-from src.domain.enums.persephone_queue.enum import PersephoneQueue
 from src.domain.exceptions.exceptions import InternalServerError, UniqueIdWasNotUpdate
 from src.repositories.user.repository import UserRepository
 from src.services.persephone.service import SendToPersephone
+from src.transport.onboarding_steps_br import ValidateOnboardingStepsBR
+from src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
 
 
 class UserService:
@@ -18,7 +15,7 @@ class UserService:
         return unique_id, exchange_member
 
     @staticmethod
-    async def update_exchange_member_us(cls, jwt_data: dict, thebes_answer: str) -> dict:
+    async def update_exchange_member_us(cls, jwt_data: dict, thebes_answer: str) -> bool:
         unique_id, exchange_member = cls.__extract_unique_id(jwt_data=jwt_data)
 
         br_step_validator = ValidateOnboardingStepsBR.onboarding_br_step_validator(thebes_answer=thebes_answer)
