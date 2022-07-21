@@ -1,48 +1,44 @@
 import asyncio
 
+from decouple import config
+from starlette import status
+
+from src.domain.enums.persephone_queue.enum import PersephoneQueue
+from src.domain.exceptions.exceptions import InternalServerError, UniqueIdWasNotUpdate
+from src.repositories.user.repository import UserRepository
+from src.services.persephone.service import SendToPersephone
+
 
 class UserService:
 
+    @classmethod
+    def __extract_unique_id(cls, jwt_data: dict):
+        unique_id = jwt_data.get("x-thebes-answer").get("user").get("unique_id")
+        exchange_member = jwt_data.get("exchange_member")
+        return unique_id, exchange_member
+
     @staticmethod
-    async def update_exchange_member_us(
-        payload: dict
-    ) -> dict:
-        thebes_answer = payload["x-thebes-answer"]
-        thebes_answer_user = thebes_answer["user"]
-        user_is_exchange_member = payload["is_exchange_member"]
-        br_step_validator = UserService.onboarding_br_step_validator(
-            payload=payload, onboard_step=["finished"]
-        )
-        us_step_validator = UserService.onboarding_us_step_validator(
-            payload=payload, onboard_step=["is_exchange_member_step"]
-        )
+    async def update_exchange_member_us(cls, jwt_data: dict, thebes_answer: str) -> dict:
+        unique_id, exchange_member = cls.__extract_unique_id(jwt_data=jwt_data)
+
+        br_step_validator = ValidateOnboardingStepsBR.onboarding_br_step_validator(thebes_answer=thebes_answer)
+
+        us_step_validator = ValidateOnboardingStepsUS.onboarding_us_step_validator(thebes_answer=thebes_answer)
+
         await asyncio.gather(br_step_validator, us_step_validator)
 
-        (
-            sent_to_persephone,
-            status_sent_to_persephone,
-        ) = await Persephone.persephone_client.send_to_persephone(
-            topic=config("PERSEPHONE_TOPIC_USER"),
-            partition=PersephoneQueue.USER_EXCHANGE_MEMBER_IN_US.value,
-            message=get_user_exchange_member_schema_template_with_data(
-                exchange_member=user_is_exchange_member,
-                unique_id=thebes_answer["user"]["unique_id"],
-            ),
-            schema_name="user_exchange_member_us_schema",
+        await SendToPersephone.register_user_exchange_member_log(
+            unique_id=unique_id, exchange_member=exchange_member
         )
-        if sent_to_persephone is False:
-            raise InternalServerError("common.process_issue")
 
         was_updated = await UserRepository.update_one(
-            old={"unique_id": thebes_answer_user["unique_id"]},
+            old={"unique_id": unique_id},
             new={
-                "external_exchange_requirements.us.is_exchange_member": user_is_exchange_member
+                "external_exchange_requirements.us.is_exchange_member": exchange_member
             },
         )
-        if not was_updated:
-            raise InternalServerError("common.unable_to_process")
 
-        return {
-            "status_code": status.HTTP_200_OK,
-            "message_key": "requests.updated",
-        }
+        if not was_updated:
+            raise UniqueIdWasNotUpdate
+
+        return was_updated
