@@ -26,7 +26,7 @@ app = Flask(__name__)
 
 
 @app.route('/put/update_broker_member')
-async def update_broker_member(request_body: Request = request) -> Response:
+async def update_exchange_member(request_body: Request = request) -> Response:
     thebes_answer = request_body.headers.get("x-thebes-answer")
 
     try:
