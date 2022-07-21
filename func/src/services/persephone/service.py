@@ -1,5 +1,6 @@
 # THIRD PARTY IMPORTS
-from decouple import config
+# from decouple import config
+from src.infrastructure.env_config import config
 from etria_logger import Gladsheim
 from persephone_client import Persephone
 
@@ -19,7 +20,7 @@ class SendToPersephone:
             status_sent_to_persephone,
         ) = await Persephone.send_to_persephone(
             topic=config("PERSEPHONE_TOPIC_USER"),
-            partition=PersephoneQueue.PROSPECT_USER_QUEUE.value,
+            partition=PersephoneQueue.USER_EXCHANGE_MEMBER_IN_US.value,
             message=ExchangeMemberTemplates.exchange_member_schema_template(
                 exchange_member=exchange_member,
                 unique_id=unique_id,

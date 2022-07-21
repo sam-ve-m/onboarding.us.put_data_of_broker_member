@@ -1,5 +1,6 @@
 # THIRD PART IMPORTS
-from decouple import config
+# from decouple import config
+from src.infrastructure.env_config import config
 from motor.motor_asyncio import AsyncIOMotorClient
 
 

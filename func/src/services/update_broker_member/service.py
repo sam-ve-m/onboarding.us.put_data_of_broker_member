@@ -1,12 +1,12 @@
 import asyncio
-from src.domain.exceptions.exceptions import InternalServerError, UniqueIdWasNotUpdate
+from src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
 from src.repositories.user.repository import UserRepository
 from src.services.persephone.service import SendToPersephone
 from src.transport.onboarding_steps_br import ValidateOnboardingStepsBR
 from src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
 
 
-class UserService:
+class UpdateBrokerMember:
 
     @classmethod
     def __extract_unique_id(cls, jwt_data: dict):
@@ -14,7 +14,7 @@ class UserService:
         exchange_member = jwt_data.get("exchange_member")
         return unique_id, exchange_member
 
-    @staticmethod
+    @classmethod
     async def update_exchange_member_us(cls, jwt_data: dict, thebes_answer: str) -> bool:
         unique_id, exchange_member = cls.__extract_unique_id(jwt_data=jwt_data)
 

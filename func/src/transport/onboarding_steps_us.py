@@ -3,8 +3,9 @@ from http import HTTPStatus
 import requests
 
 # THIRD PART IMPORTS
-from decouple import config
+#from decouple import config
 from etria_logger import Gladsheim
+from src.infrastructure.env_config import config
 
 # PROJECT IMPORTS
 from src.domain.enums.status_code.enum import InternalCode
@@ -50,5 +51,5 @@ class ValidateOnboardingStepsUS:
         response = cls.__get_onboarding_steps_us(thebes_answer=thebes_answer)
         broker_member = response.get("is_exchange_member_step")
 
-        if broker_member in cls.expected_step_us:
+        if broker_member not in cls.expected_step_us:
             raise InvalidUsOnboardingStep
