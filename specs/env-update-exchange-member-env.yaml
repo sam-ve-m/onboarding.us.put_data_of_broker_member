@@ -93,4 +93,5 @@ spec:
               value: "1"
             - name: REDIS_HOST_ACCESS_URL
               value: "redis://jormungandr:oUjqwnmdDSA391dja@172.30.11.235:6379?db=8"
+
   version: 2
