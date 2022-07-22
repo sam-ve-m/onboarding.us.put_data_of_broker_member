@@ -1,0 +1,23 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: update-exchange-member-rt
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    functionweights: null
+    name: update-exchange-member-fn
+    type: name
+  host: ""
+  ingressconfig:
+    annotations: null
+    host: '*'
+    path: /update-exchange-member
+    tls: ""
+  method: ""
+  methods:
+  - PUT
+  prefix: ""
+  relativeurl: /update-exchange-member
