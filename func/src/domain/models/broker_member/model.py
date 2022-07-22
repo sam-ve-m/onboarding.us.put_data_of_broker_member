@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class ExchangeMemberModel(BaseModel):
-    exchange_member: str
+    exchange_member: bool
 
 
 class ExchangeMemberTemplates:
