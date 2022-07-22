@@ -9,25 +9,25 @@ from etria_logger import Gladsheim
 # PROJECT IMPORTS
 from src.domain.enums.status_code.enum import InternalCode
 from src.domain.response.model import ResponseModel
+from src.domain.validator.onboarding_steps_br.validator import OnboardingStepsUsValidator
 
 
 class OnboardingStepsBrTransport:
 
-    onboarding_steps_br_url = config("BR_BASE_URL")
-    expected_step_br = "finished"
+    steps_br_url = config("BR_BASE_URL")
 
     @classmethod
     def __get_onboarding_steps_br(cls, thebes_answer: str):
         headers = {'x-thebes-answer': "{}".format(thebes_answer)}
         try:
-            steps_br_response = requests.get(cls.onboarding_steps_br_url, headers=headers)
-            step_response = steps_br_response.json()
+            steps_br_response = requests.get(cls.steps_br_url, headers=headers)
+            step_response = steps_br_response.json().dict()
 
-            is_onboarding_steps_valid = OnboardingStepsUsValidator.onboarding_br_step_validator(
-
+            onboarding_step_is_valid = OnboardingStepsUsValidator.onboarding_br_step_validator(
+                step_response=step_response
             )
 
-            return step_response
+            return onboarding_step_is_valid
 
         except requests.exceptions.ConnectionError as error:
             Gladsheim.error(error=error)
