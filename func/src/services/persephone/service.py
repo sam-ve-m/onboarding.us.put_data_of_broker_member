@@ -6,13 +6,16 @@ from persephone_client import Persephone
 # PROJECT IMPORTS
 from src.domain.enums.persephone_queue.enum import PersephoneQueue
 from src.domain.exceptions.exceptions import NotSentToPersephone
-from src.domain.models.broker_member.model import ExchangeMemberTemplates
+from src.domain.models.broker_member.base.model import ExchangeMemberTemplates, ExchangeMemberRequest
+from src.domain.models.jwt.response import Jwt
 
 
 class SendToPersephone:
 
     @classmethod
-    async def register_user_exchange_member_log(cls, unique_id: str, exchange_member: bool):
+    async def register_user_exchange_member_log(
+            cls, jwt_data: Jwt, exchange_member_request: ExchangeMemberRequest
+    ):
 
         (
             sent_to_persephone,
@@ -21,8 +24,8 @@ class SendToPersephone:
             topic=config("PERSEPHONE_TOPIC_USER"),
             partition=PersephoneQueue.USER_EXCHANGE_MEMBER_IN_US.value,
             message=ExchangeMemberTemplates.exchange_member_schema_template(
-                exchange_member=exchange_member,
-                unique_id=unique_id,
+                exchange_member=exchange_member_request.exchange_member,
+                unique_id=jwt_data.get_unique_id_from_jwt_payload(),
             ),
             schema_name="user_exchange_member_us_schema",
         )

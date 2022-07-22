@@ -9,9 +9,9 @@ from etria_logger import Gladsheim
 
 # PROJECT IMPORTS
 from src.domain.enums.status_code.enum import InternalCode
-from src.domain.models.broker_member.model import ExchangeMemberModel
+from src.domain.models.broker_member.base.model import ExchangeMemberRequest
+from src.domain.models.jwt.response import Jwt
 from src.domain.response.model import ResponseModel
-from src.services.jwt_service.service import JWTService
 from src.services.update_broker_member.service import UpdateExchangeMember
 from src.domain.exceptions.exceptions import (
                                         InvalidUsOnboardingStep,
@@ -29,12 +29,13 @@ async def update_exchange_member(request_body: Request = request) -> Response:
     thebes_answer = request_body.headers.get("x-thebes-answer")
 
     try:
-        jwt_data = await JWTService.decode_jwt_from_request(jwt_data=thebes_answer)
-        exchange_member = ExchangeMemberModel(**request_body.json).dict()
-        payload = {"x-thebes-answer": jwt_data}
-        payload.update(exchange_member)
+        jwt_data = Jwt(jwt=thebes_answer)
+        await jwt_data()
+        exchange_member = ExchangeMemberRequest(**request_body.json)
+
         service_response = await UpdateExchangeMember.update_exchange_member_us(
-            thebes_answer=thebes_answer, jwt_data=payload
+            jwt_data=jwt_data,
+            exchange_member_request=exchange_member
         )
 
         response = ResponseModel(

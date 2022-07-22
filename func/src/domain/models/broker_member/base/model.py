@@ -2,7 +2,7 @@
 from pydantic import BaseModel
 
 
-class ExchangeMemberModel(BaseModel):
+class ExchangeMemberRequest(BaseModel):
     exchange_member: bool
 
 
