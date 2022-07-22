@@ -3,13 +3,14 @@ from http import HTTPStatus
 import requests
 
 # THIRD PART IMPORTS
-from decouple import config
+# from decouple import config
 from etria_logger import Gladsheim
 
 # PROJECT IMPORTS
 from src.domain.enums.status_code.enum import InternalCode
 from src.domain.exceptions.exceptions import InvalidUsOnboardingStep, ErrorOnGettingDataFromStepsUs
 from src.domain.response.model import ResponseModel
+from src.infrastructure.env_config import config
 
 
 class ValidateOnboardingStepsUS:
@@ -25,7 +26,7 @@ class ValidateOnboardingStepsUS:
             response = step_response["result"]["current_step"]
             return response
 
-        except ErrorOnGettingDataFromStepsUs as error:
+        except requests.exceptions.ConnectionError as error:
             Gladsheim.error(error=error)
             response = ResponseModel(
                 result=False,

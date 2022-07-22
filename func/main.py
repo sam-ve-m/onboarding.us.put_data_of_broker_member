@@ -1,6 +1,8 @@
 # STANDARD IMPORTS
 from http import HTTPStatus
-from flask import request, Response, Request
+
+import requests
+from flask import request, Response, Request, Flask
 
 # THIRD PART IMPORTS
 from etria_logger import Gladsheim
@@ -22,7 +24,10 @@ from src.domain.exceptions.exceptions import (
                                         ErrorOnGettingDataFromStepsUs
                                     )
 
+app = Flask(__name__)
 
+
+@app.route('/put/update_exchange_member')
 async def update_exchange_member(request_body: Request = request) -> Response:
     thebes_answer = request_body.headers.get("x-thebes-answer")
 
@@ -43,8 +48,8 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.OK)
         return response
 
-    except InvalidBrOnboardingStep as ex:
-        Gladsheim.error(error=ex)
+    except InvalidBrOnboardingStep as error:
+        Gladsheim.error(error=error)
         response = ResponseModel(
             result=False,
             success=False,
@@ -53,8 +58,8 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
-    except ErrorOnDecodeJwt as ex:
-        Gladsheim.error(error=ex)
+    except ErrorOnDecodeJwt as error:
+        Gladsheim.error(error=error)
         response = ResponseModel(
             result=False,
             success=False,
@@ -63,8 +68,8 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
-    except NotSentToPersephone as ex:
-        Gladsheim.error(error=ex)
+    except NotSentToPersephone as error:
+        Gladsheim.error(error=error)
         response = ResponseModel(
             result=False,
             success=False,
@@ -73,8 +78,18 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
-    except UniqueIdWasNotUpdate as ex:
-        Gladsheim.error(error=ex)
+    except requests.exceptions.ConnectionError as error:
+        Gladsheim.error(error=error)
+        response = ResponseModel(
+            result=False,
+            success=False,
+            code=InternalCode.HTTP_CONNECTION_POLL,
+            message="Error On HTTP Request"
+        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
+        return response
+
+    except UniqueIdWasNotUpdate as error:
+        Gladsheim.error(error=error)
         response = ResponseModel(
             result=False,
             success=False,
@@ -83,8 +98,8 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
-    except InvalidUsOnboardingStep as ex:
-        Gladsheim.error(error=ex)
+    except InvalidUsOnboardingStep as error:
+        Gladsheim.error(error=error)
         response = ResponseModel(
             result=False,
             success=False,
@@ -93,8 +108,8 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
-    except InvalidParams as ex:
-        Gladsheim.error(error=ex)
+    except InvalidParams as error:
+        Gladsheim.error(error=error)
         response = ResponseModel(
             result=False,
             success=False,
@@ -103,8 +118,8 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
-    except ErrorOnGettingDataFromStepsBr as ex:
-        Gladsheim.error(error=ex)
+    except ErrorOnGettingDataFromStepsBr as error:
+        Gladsheim.error(error=error)
         response = ResponseModel(
             result=False,
             success=False,
@@ -113,8 +128,8 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
-    except ErrorOnGettingDataFromStepsUs as ex:
-        Gladsheim.error(error=ex)
+    except ErrorOnGettingDataFromStepsUs as error:
+        Gladsheim.error(error=error)
         response = ResponseModel(
             result=False,
             success=False,
@@ -123,8 +138,8 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
-    except Exception as ex:
-        Gladsheim.error(error=ex)
+    except Exception as error:
+        Gladsheim.error(error=error)
         response = ResponseModel(
             result=False,
             success=False,
@@ -132,3 +147,6 @@ async def update_exchange_member(request_body: Request = request) -> Response:
             message="Unexpected error occurred"
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
+
+if __name__ == "__main__":
+    app.run(debug=True)
