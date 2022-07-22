@@ -8,15 +8,7 @@ br_steps_result_stub = {'suitability': True,
                      'time_experience': True,
                      'current_step': 'finished'}
 
-us_steps_result_stub = {'terms': True,
-          'user_document_validator': True,
-          'politically_exposed': True,
-          'exchange_member': True,
-          'company_director': True,
-          'external_fiscal_tax_confirmation': True,
-          'employ': True,
-          'time_experience': True,
-          'current_step': 'finished'}
+us_steps_result_stub = "finished"
 
 steps_result = {'terms': True,
           'user_document_validator': True,

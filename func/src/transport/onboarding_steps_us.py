@@ -3,7 +3,7 @@ from http import HTTPStatus
 import requests
 
 # THIRD PART IMPORTS
-#from decouple import config
+# from decouple import config
 from etria_logger import Gladsheim
 from src.infrastructure.env_config import config
 
@@ -15,15 +15,15 @@ from src.domain.response.model import ResponseModel
 
 class ValidateOnboardingStepsUS:
     onboarding_steps_us_url = config("US_BASE_URL")
-    expected_step_us = {"is_exchange_member_step", "finished"}
+    expected_step_us = {'is_exchange_member_step', 'finished'}
 
     @classmethod
     def __get_onboarding_steps_us(cls, thebes_answer: str):
         headers = {'x-thebes-answer': "{}".format(thebes_answer)}
         try:
             steps_us_response = requests.get(cls.onboarding_steps_us_url, headers=headers)
-
-            response = steps_us_response.json().get("result", {})
+            step_response = steps_us_response.json()
+            response = step_response["result"]["current_step"]
             return response
 
         except ErrorOnGettingDataFromStepsUs as error:
@@ -39,7 +39,7 @@ class ValidateOnboardingStepsUS:
     @classmethod
     async def onboarding_us_step_validator(cls, thebes_answer: str):
         response = cls.__get_onboarding_steps_us(thebes_answer=thebes_answer)
-        broker_member = response.get("is_exchange_member_step")
+        step_is_valid = response in cls.expected_step_us
 
-        if broker_member not in cls.expected_step_us:
+        if not step_is_valid:
             raise InvalidUsOnboardingStep

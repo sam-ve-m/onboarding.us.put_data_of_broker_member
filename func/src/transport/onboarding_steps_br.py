@@ -22,7 +22,8 @@ class ValidateOnboardingStepsBR:
         headers = {'x-thebes-answer': "{}".format(thebes_answer)}
         try:
             steps_br_response = requests.get(cls.onboarding_steps_br_url, headers=headers)
-            response = steps_br_response.json().get("result")
+            step_response = steps_br_response.json()
+            response = step_response["result"]["current_step"]
             return response
 
         except ErrorOnGettingDataFromStepsBr as error:
@@ -38,7 +39,7 @@ class ValidateOnboardingStepsBR:
     @classmethod
     async def onboarding_br_step_validator(cls, thebes_answer: str):
         response = cls.__get_onboarding_steps_br(thebes_answer=thebes_answer)
-        current_step = response.get("current_step")
+        step_is_valid = response in cls.expected_step_br
 
-        if not current_step == cls.expected_step_br:
+        if not step_is_valid:
             raise InvalidBrOnboardingStep

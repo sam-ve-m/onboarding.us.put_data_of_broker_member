@@ -3,6 +3,7 @@ from unittest.mock import patch
 import pytest
 
 # PROJECT IMPORTS
+from src.domain.exceptions.exceptions import InvalidUsOnboardingStep
 from tests.src.transport.stub_onboarding import us_steps_result_stub
 from tests.src.services.jwt_service.stub_service import jwt_to_decode_stub
 from func.src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
@@ -26,11 +27,11 @@ async def test_when_sending_right_params_to_onboarding_us_step_validator_then_re
 @patch.object(
     ValidateOnboardingStepsUS,
     "_ValidateOnboardingStepsUS__get_onboarding_steps_us",
-    return_value=Exception)
+    return_value="current_step")
 async def test_when_sending_wrong_params_to_onboarding_us_step_validator_then_raise_error(
         mock_get_onboarding_steps_us
 ):
-    with pytest.raises(Exception):
+    with pytest.raises(InvalidUsOnboardingStep):
         await ValidateOnboardingStepsUS.onboarding_us_step_validator(
             thebes_answer=None
         )

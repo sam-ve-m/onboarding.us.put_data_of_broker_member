@@ -14,7 +14,7 @@ from tests.src.transport.stub_onboarding import br_steps_result_stub
 @patch.object(
     ValidateOnboardingStepsBR,
     "_ValidateOnboardingStepsBR__get_onboarding_steps_br",
-    return_value=br_steps_result_stub)
+    return_value="finished")
 async def test_when_sending_right_params_to_onboarding_br_step_validator_then_return_the_expected(
         mock_get_onboarding_steps_br
 ):
