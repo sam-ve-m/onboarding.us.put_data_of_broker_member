@@ -9,10 +9,10 @@ from etria_logger import Gladsheim
 # PROJECT IMPORTS
 from src.domain.enums.status_code.enum import InternalCode
 from src.domain.response.model import ResponseModel
-from src.domain.validator.onboarding_steps_br.validator import OnboardingStepsUsValidator
+from src.domain.validator.onboarding_steps_br.validator import OnboardingStepsBrValidator
 
 
-class OnboardingStepsBrTransport:
+class ValidateOnboardingStepsBr:
 
     steps_br_url = config("BR_BASE_URL")
 
@@ -23,11 +23,11 @@ class OnboardingStepsBrTransport:
             steps_br_response = requests.get(cls.steps_br_url, headers=headers)
             step_response = steps_br_response.json().dict()
 
-            onboarding_step_is_valid = OnboardingStepsUsValidator.onboarding_br_step_validator(
+            step_is_valid = OnboardingStepsBrValidator.onboarding_br_step_validator(
                 step_response=step_response
             )
 
-            return onboarding_step_is_valid
+            return step_is_valid
 
         except requests.exceptions.ConnectionError as error:
             Gladsheim.error(error=error)

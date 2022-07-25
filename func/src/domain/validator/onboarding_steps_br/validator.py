@@ -1,7 +1,9 @@
+# PROJECT IMPORTS
 from src.domain.exceptions.exceptions import InvalidBrOnboardingStep
 
 
-class OnboardingStepsUsValidator:
+class OnboardingStepsBrValidator:
+
     expected_step_br = "finished"
 
     @classmethod
