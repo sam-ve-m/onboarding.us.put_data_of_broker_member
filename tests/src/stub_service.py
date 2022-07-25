@@ -1,3 +1,7 @@
+from heimdall_client import HeimdallStatusResponses
+
+from src.domain.exceptions.exceptions import ErrorOnDecodeJwt
+
 jwt_decoded_stub = {
   "user": {
     "unique_id": "40db7fee-6d60-4d73-824f-1bf87edc4491",
@@ -39,3 +43,30 @@ decoded_jwt_stub = {'created_at': 1656425421.60926,
                          'us': {'dw_account': '89c69304-018a-40b7-be5b-2121c16e109e.1651525277006',
                                 'dw_display_account': 'LX01000001'}},
           'unique_id': '40db7fee-6d60-4d73-824f-1bf87edc4491'}}
+
+
+class StubJwt:
+
+    def __init__(self, jwt: str):
+        self.__jwt = jwt_to_decode_stub
+
+    async def __decode_and_validate_jwt(self):
+        jwt_content, heimdall_status_response = (decoded_jwt_stub, HeimdallStatusResponses.SUCCESS)
+        if HeimdallStatusResponses.SUCCESS == heimdall_status_response:
+            self.__jwt_payload = decoded_jwt_stub
+            return self.__jwt_payload
+        else:
+            raise ErrorOnDecodeJwt
+
+    def get_unique_id_from_jwt_payload(self):
+        return self.__jwt_payload.get("user").get("unique_id")
+
+    @staticmethod
+    def get_exchange_member_from_jwt_payload(self):
+        return True
+
+    def get_jwt(self):
+        return self.__jwt
+
+    async def __call__(self):
+        self.__jwt_payload = True
