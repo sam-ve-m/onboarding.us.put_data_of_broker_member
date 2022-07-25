@@ -1,12 +1,13 @@
 # THIRD PARTY IMPORTS
-from decouple import config
+# from decouple import config
 from etria_logger import Gladsheim
 from persephone_client import Persephone
+from src.infrastructure.env_config import config
 
 # PROJECT IMPORTS
 from src.domain.enums.persephone_queue.enum import PersephoneQueue
 from src.domain.exceptions.exceptions import NotSentToPersephone
-from src.domain.models.broker_member.base.model import ExchangeMemberTemplates, ExchangeMemberRequest
+from src.domain.models.broker_member.base.model import ExchangeMemberToPersephone, ExchangeMemberRequest
 from src.domain.models.jwt.response import Jwt
 
 
@@ -23,7 +24,7 @@ class SendToPersephone:
         ) = await Persephone.send_to_persephone(
             topic=config("PERSEPHONE_TOPIC_USER"),
             partition=PersephoneQueue.USER_EXCHANGE_MEMBER_IN_US.value,
-            message=ExchangeMemberTemplates.exchange_member_schema_template(
+            message=ExchangeMemberToPersephone.exchange_member_schema(
                 exchange_member=exchange_member_request.exchange_member,
                 unique_id=jwt_data.get_unique_id_from_jwt_payload(),
             ),

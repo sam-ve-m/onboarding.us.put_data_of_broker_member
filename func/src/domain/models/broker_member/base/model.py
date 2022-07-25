@@ -6,10 +6,10 @@ class ExchangeMemberRequest(BaseModel):
     exchange_member: bool
 
 
-class ExchangeMemberTemplates:
+class ExchangeMemberToPersephone:
 
     @classmethod
-    def exchange_member_schema_template(
+    def exchange_member_schema(
             cls, exchange_member: bool, unique_id: str
     ) -> dict:
         broker_member_template = {

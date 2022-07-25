@@ -7,8 +7,8 @@ from src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
 from src.domain.models.broker_member.base.model import ExchangeMemberRequest
 from src.repositories.user.repository import UserRepository
 from src.services.persephone.service import SendToPersephone
-from src.transport.onboarding_steps_br import ValidateOnboardingStepsBR
-from src.transport.onboarding_steps_us import ValidateOnboardingStepsUS
+from src.transport.onboarding_steps_br.onboarding_steps_br import ValidateOnboardingStepsBr
+from src.transport.onboarding_steps_us.onboarding_steps_us import ValidateOnboardingStepsUS
 
 
 class UpdateExchangeMember:
@@ -19,9 +19,9 @@ class UpdateExchangeMember:
             jwt_data: Jwt,
             exchange_member_request: ExchangeMemberRequest) -> bool:
 
-        br_step_validator = ValidateOnboardingStepsBR.onboarding_br_step_validator(jwt_data=jwt_data)
+        br_step_validator = ValidateOnboardingStepsBr.validate_onboarding_steps_br(jwt_data=jwt_data)
 
-        us_step_validator = ValidateOnboardingStepsUS.onboarding_us_step_validator(jwt_data=jwt_data)
+        us_step_validator = ValidateOnboardingStepsUS.validate_onboarding_steps_us(jwt_data=jwt_data)
 
         await asyncio.gather(br_step_validator, us_step_validator)
 
@@ -31,7 +31,7 @@ class UpdateExchangeMember:
         )
 
         was_updated = await UserRepository.update_user_and_exchange_member(
-
+            jwt_data=jwt_data
             )
 
         if not was_updated:
