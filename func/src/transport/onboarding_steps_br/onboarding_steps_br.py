@@ -20,7 +20,7 @@ class ValidateOnboardingStepsBr:
 
     @classmethod
     def validate_onboarding_steps_br(cls, jwt_data: Jwt):
-        headers = {'x-thebes-answer': "{}".format(jwt_data)}
+        headers = {'x-thebes-answer': "{}".format(jwt_data.get_jwt())}
         try:
             steps_br_response = requests.get(cls.steps_br_url, headers=headers)
             step_response = steps_br_response.json().dict()

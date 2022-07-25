@@ -11,7 +11,9 @@ class Jwt:
         jwt_content, heimdall_status_response = await Heimdall.decode_payload(jwt=self.__jwt)
         if HeimdallStatusResponses.SUCCESS == heimdall_status_response:
             self.__jwt_payload = jwt_content.get("decoded_jwt")
-        raise ErrorOnDecodeJwt
+            return self.__jwt_payload
+        else:
+            raise ErrorOnDecodeJwt
 
     def get_unique_id_from_jwt_payload(self):
         return self.__jwt_payload.get("user").get("unique_id")

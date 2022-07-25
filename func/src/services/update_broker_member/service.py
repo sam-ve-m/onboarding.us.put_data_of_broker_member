@@ -2,9 +2,9 @@
 import asyncio
 
 # PROJECT IMPORTS
-from main import Jwt
 from src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
 from src.domain.models.broker_member.base.model import ExchangeMemberRequest
+from src.domain.models.jwt.response import Jwt
 from src.repositories.user.repository import UserRepository
 from src.services.persephone.service import SendToPersephone
 from src.transport.onboarding_steps_br.onboarding_steps_br import ValidateOnboardingStepsBr

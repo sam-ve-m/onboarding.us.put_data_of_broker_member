@@ -5,7 +5,6 @@ from flask import Flask
 from werkzeug.datastructures import Headers
 
 from main import update_exchange_member
-from src.services.jwt_service.service import JWTService
 from src.services.update_broker_member.service import UpdateExchangeMember
 
 # STUB IMPORTS
