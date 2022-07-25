@@ -1,0 +1,2 @@
+class ValidateOnboardingStepsBR:
+    pass
