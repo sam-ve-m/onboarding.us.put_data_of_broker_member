@@ -1,6 +1,5 @@
 # STANDARD IMPORTS
-# from decouple import config
-from src.infrastructure.env_config import config
+from decouple import config
 
 # PROJECT IMPORTS
 from src.domain.models.jwt.response import Jwt

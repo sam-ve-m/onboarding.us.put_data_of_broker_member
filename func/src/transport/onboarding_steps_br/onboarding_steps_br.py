@@ -3,9 +3,8 @@ from http import HTTPStatus
 import requests
 
 # THIRD PART IMPORTS
-# from decouple import config
+from decouple import config
 from etria_logger import Gladsheim
-from src.infrastructure.env_config import config
 
 # PROJECT IMPORTS
 from src.domain.enums.status_code.enum import InternalCode

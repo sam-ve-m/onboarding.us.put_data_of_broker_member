@@ -1,8 +1,7 @@
 # THIRD PARTY IMPORTS
-# from decouple import config
+from decouple import config
 from etria_logger import Gladsheim
 from persephone_client import Persephone
-from src.infrastructure.env_config import config
 
 # PROJECT IMPORTS
 from src.domain.enums.persephone_queue.enum import PersephoneQueue

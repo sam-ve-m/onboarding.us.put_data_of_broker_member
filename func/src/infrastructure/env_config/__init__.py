@@ -5,8 +5,6 @@ from heimdall_client.src.domain.responses_builder.builder import ResponsesBuilde
 from heimdall_client.src.domain.exceptions.exceptions import InternalServerError
 
 
-config = None
-
 SYSTEM = platform.system()
 
 
