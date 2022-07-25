@@ -19,13 +19,13 @@ class ValidateOnboardingStepsBr:
     steps_br_url = config("BR_BASE_URL")
 
     @classmethod
-    def validate_onboarding_steps_br(cls, jwt_data: Jwt):
+    async def validate_onboarding_steps_br(cls, jwt_data: Jwt):
         headers = {'x-thebes-answer': "{}".format(jwt_data.get_jwt())}
         try:
             steps_br_response = requests.get(cls.steps_br_url, headers=headers)
             step_response = steps_br_response.json().dict()
 
-            step_is_valid = OnboardingStepsBrValidator.onboarding_br_step_validator(
+            step_is_valid = await OnboardingStepsBrValidator.onboarding_br_step_validator(
                 step_response=step_response
             )
 

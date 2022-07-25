@@ -18,13 +18,13 @@ class ValidateOnboardingStepsUS:
     onboarding_steps_us_url = config("US_BASE_URL")
 
     @classmethod
-    def validate_onboarding_steps_us(cls, jwt_data: Jwt):
+    async def validate_onboarding_steps_us(cls, jwt_data: Jwt):
         headers = {'x-thebes-answer': "{}".format(jwt_data)}
         try:
             steps_us_response = requests.get(cls.onboarding_steps_us_url, headers=headers)
             step_response = steps_us_response.json().dict()
 
-            step_is_valid = OnboardingStepsUsValidator.onboarding_us_step_validator(
+            step_is_valid = await OnboardingStepsUsValidator.onboarding_us_step_validator(
                 step_response=step_response
             )
 
