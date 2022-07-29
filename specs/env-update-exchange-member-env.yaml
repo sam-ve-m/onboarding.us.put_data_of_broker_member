@@ -30,9 +30,9 @@ spec:
             - name: HEIMDALL_AWS_SECRET_ACCESS_KEY
               value: "/5pswHkrCgWhMYrV7TM7oVm8VtulfzdYKE2rlS8f"
             - name: BR_BASE_URL
-              value: "https://fission.dev-lionx.com.br/onboarding_steps_br"
+              value: "http://fission.dev-lionx.com.br/onboarding_steps_br"
             - name: US_BASE_URL
-              value: "https://fission.dev-lionx.com.br/onboarding_steps_us"
+              value: "http://fission.dev-lionx.com.br/onboarding_steps_us"
             - name: PERSEPHONE_QUEUE_HOST
               value: "172.30.10.105"
             - name: PERSEPHONE_QUEUE_PORT
