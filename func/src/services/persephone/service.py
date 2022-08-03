@@ -14,7 +14,9 @@ class SendToPersephone:
 
     @classmethod
     async def register_user_exchange_member_log(
-            cls, jwt_data: Jwt, exchange_member_request: ExchangeMemberRequest
+            cls,
+            jwt_data: Jwt,
+            exchange_member_request: ExchangeMemberRequest
     ):
 
         (

@@ -30,7 +30,7 @@ class UpdateExchangeMember:
             exchange_member_request=exchange_member_request
         )
 
-        was_updated = await UserRepository.update_user_and_exchange_member(
+        was_updated = await UserRepository.update_user_and_broker_member(
             jwt_data=jwt_data
             )
 

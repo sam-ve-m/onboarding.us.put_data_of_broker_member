@@ -10,7 +10,7 @@ from etria_logger import Gladsheim
 from src.domain.enums.status_code.enum import InternalCode
 from src.domain.models.broker_member.base.model import ExchangeMemberRequest
 from src.domain.models.jwt.response import Jwt
-from src.domain.response.model import ResponseModel
+from src.domain.models.response.model import ResponseModel
 from src.services.update_broker_member.service import UpdateExchangeMember
 from src.domain.exceptions.exceptions import (
                                         InvalidUsOnboardingStep,

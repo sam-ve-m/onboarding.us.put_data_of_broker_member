@@ -1,5 +1,5 @@
 # STANDARD IMPORTS
-from unittest.mock import patch, AsyncMock, Mock
+from unittest.mock import patch, Mock
 import pytest
 
 # PROJECT IMPORTS
@@ -11,8 +11,6 @@ from src.services.update_broker_member.service import UpdateExchangeMember
 from src.transport.onboarding_steps_br.onboarding_steps_br import ValidateOnboardingStepsBr
 from src.transport.onboarding_steps_us.onboarding_steps_us import ValidateOnboardingStepsUS
 
-# STUB IMPORTS
-from tests.src.stub_service import decoded_jwt_stub
 
 get_unique_id_from_jwt_payload = "125458.hagfsdsa"
 
@@ -21,7 +19,7 @@ get_unique_id_from_jwt_payload = "125458.hagfsdsa"
 @patch.object(ValidateOnboardingStepsBr, "validate_onboarding_steps_br", side_effect=[None, None])
 @patch.object(ValidateOnboardingStepsUS, "validate_onboarding_steps_us", side_effect=[None, None])
 @patch.object(SendToPersephone, "register_user_exchange_member_log", return_value=None)
-@patch.object(UserRepository, "update_one", return_value=True)
+@patch.object(UserRepository, "update_user_and_broker_member", return_value=True)
 async def test_when_sending_right_params_to_update_exchange_member_us_then_return_the_expected(
         mock_onboarding_br_step_validator,
         mock_onboarding_us_step_validator,
@@ -39,7 +37,7 @@ async def test_when_sending_right_params_to_update_exchange_member_us_then_retur
 @patch.object(ValidateOnboardingStepsBr, "validate_onboarding_steps_br", side_effect=[None, None])
 @patch.object(ValidateOnboardingStepsUS, "validate_onboarding_steps_us", side_effect=[None, None])
 @patch.object(SendToPersephone, "register_user_exchange_member_log", return_value=None)
-@patch.object(UserRepository, "update_one", return_value=False)
+@patch.object(UserRepository, "update_user_and_broker_member", return_value=False)
 async def test_when_sending_wrong_params_to_update_exchange_member_us_then_raise_unique_id_was_not_updated_error(
         mock_onboarding_br_step_validator,
         mock_onboarding_us_step_validator,
