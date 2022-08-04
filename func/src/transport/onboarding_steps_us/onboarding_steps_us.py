@@ -19,7 +19,7 @@ class ValidateOnboardingStepsUS:
 
     @classmethod
     async def validate_onboarding_steps_us(cls, jwt_data: Jwt):
-        headers = {'x-thebes-answer': "{}".format(jwt_data)}
+        headers = {'x-thebes-answer': "{}".format(jwt_data.get_jwt())}
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(cls.steps_us_url, headers=headers) as response:

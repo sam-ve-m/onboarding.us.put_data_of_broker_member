@@ -24,9 +24,9 @@ spec:
             - name: ASGI_FRAMEWORK
               value: "HYPERCORN"
             - name: BR_BASE_URL
-              value: "http://fission.dev-lionx.com.br/onboarding_steps_br"
+              value: "http://fission.dev-lionx.com.br/onboarding/steps_br"
             - name: US_BASE_URL
-              value: "http://fission.dev-lionx.com.br/onboarding_steps_us"
+              value: "http://fission.dev-lionx.com.br/onboarding/steps_us"
             - name: PERSEPHONE_QUEUE_HOST
               value: "172.30.10.105"
             - name: PERSEPHONE_QUEUE_PORT
@@ -34,7 +34,7 @@ spec:
             - name: PERSEPHONE_TOPIC
               value: "thebes.sphinx_persephone.topic"
             - name: PERSEPHONE_TOPIC_USER
-              value: "sphinx_persephone.user.crud"
+              value: "sphinx-persephone.user.crud"
             - name: PERSEPHONE_TOPIC_AUTHENTICATION
               value: "sphinx_persephone.user.authentication"
             - name: PERSEPHONE_KAFKA_BROKERS
