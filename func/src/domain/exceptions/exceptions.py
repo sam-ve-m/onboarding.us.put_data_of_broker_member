@@ -7,12 +7,8 @@ class TransportOnboardingError(Exception):
     msg = "Jormungandr-Onboarding::ValidateOnboardingSteps::error on fetching data from fission steps"
 
 
-class InvalidBrOnboardingStep(Exception):
-    msg = "ValidateOnboardingStepsBR.onboarding_br_step_validator::you're not in this step"
-
-
-class InvalidUsOnboardingStep(Exception):
-    msg = "ValidateOnboardingStepsUS.onboarding_us_step_validator::you're not in this step"
+class InvalidOnboardingStep(Exception):
+    msg = "ValidateOnboardingSteps.onboarding_step_validator::you're not in this step"
 
 
 class NotSentToPersephone(Exception):

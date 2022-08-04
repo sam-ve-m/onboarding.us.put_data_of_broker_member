@@ -1,5 +1,5 @@
 # PROJECT IMPORTS
-from src.domain.exceptions.exceptions import InvalidUsOnboardingStep
+from src.domain.exceptions.exceptions import InvalidOnboardingStep
 
 
 class OnboardingStepsUsValidator:
@@ -12,5 +12,5 @@ class OnboardingStepsUsValidator:
         step_is_valid = response in cls.expected_step_us
 
         if not step_is_valid:
-            raise InvalidUsOnboardingStep
+            raise InvalidOnboardingStep
         return step_is_valid

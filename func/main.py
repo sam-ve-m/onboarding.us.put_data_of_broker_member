@@ -13,12 +13,11 @@ from src.domain.models.jwt.response import Jwt
 from src.domain.models.response.model import ResponseModel
 from src.services.update_broker_member.service import UpdateExchangeMember
 from src.domain.exceptions.exceptions import (
-                                        InvalidUsOnboardingStep,
-                                        InvalidBrOnboardingStep,
-                                        ErrorOnDecodeJwt,
-                                        NotSentToPersephone,
-                                        UniqueIdWasNotUpdate,
-                                    )
+    InvalidOnboardingStep,
+    ErrorOnDecodeJwt,
+    NotSentToPersephone,
+    UniqueIdWasNotUpdate, TransportOnboardingError,
+)
 
 
 async def update_exchange_member(request_body: Request = request) -> Response:
@@ -42,12 +41,12 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.OK)
         return response
 
-    except InvalidBrOnboardingStep as error:
+    except InvalidOnboardingStep as error:
         Gladsheim.error(error=error)
         response = ResponseModel(
             result=False,
             success=False,
-            code=InternalCode.INVALID_BR_ONBOARDING_STEP,
+            code=InternalCode.INVALID_ONBOARDING_STEP,
             message="Invalid Onboarding Step"
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
@@ -72,16 +71,6 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
-    except requests.exceptions.ConnectionError as error:
-        Gladsheim.error(error=error)
-        response = ResponseModel(
-            result=False,
-            success=False,
-            code=InternalCode.HTTP_CONNECTION_POLL,
-            message="Error On HTTP Request"
-        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
-        return response
-
     except UniqueIdWasNotUpdate as error:
         Gladsheim.error(error=error)
         response = ResponseModel(
@@ -92,14 +81,14 @@ async def update_exchange_member(request_body: Request = request) -> Response:
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
-    except InvalidUsOnboardingStep as error:
+    except TransportOnboardingError as error:
         Gladsheim.error(error=error)
         response = ResponseModel(
             result=False,
             success=False,
-            code=InternalCode.INVALID_US_ONBOARDING_STEP,
-            message="Invalid Onboarding Step"
-        ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
+            code=InternalCode.TRANSPORT_LAYER_ERROR,
+            message="Transport Layer Error - not able to fetch data from transport response"
+        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
     except Exception as error:
