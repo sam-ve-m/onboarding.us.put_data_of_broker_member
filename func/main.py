@@ -18,9 +18,6 @@ from src.domain.exceptions.exceptions import (
                                         ErrorOnDecodeJwt,
                                         NotSentToPersephone,
                                         UniqueIdWasNotUpdate,
-                                        InvalidParams,
-                                        ErrorOnGettingDataFromStepsBr,
-                                        ErrorOnGettingDataFromStepsUs
                                     )
 
 
@@ -103,36 +100,6 @@ async def update_exchange_member(request_body: Request = request) -> Response:
             code=InternalCode.INVALID_US_ONBOARDING_STEP,
             message="Invalid Onboarding Step"
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
-        return response
-
-    except InvalidParams as error:
-        Gladsheim.error(error=error)
-        response = ResponseModel(
-            result=False,
-            success=False,
-            code=InternalCode.INVALID_PARAMS,
-            message="Invalid Params Were Sent"
-        ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
-        return response
-
-    except ErrorOnGettingDataFromStepsBr as error:
-        Gladsheim.error(error=error)
-        response = ResponseModel(
-            result=False,
-            success=False,
-            code=InternalCode.ERROR_ON_GETTING_DATA_FROM_BR_STEPS,
-            message="Http Error while getting data from fission"
-        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
-        return response
-
-    except ErrorOnGettingDataFromStepsUs as error:
-        Gladsheim.error(error=error)
-        response = ResponseModel(
-            result=False,
-            success=False,
-            code=InternalCode.ERROR_ON_GETTING_DATA_FROM_US_STEPS,
-            message="Http Error while getting data from fission"
-        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
     except Exception as error:
