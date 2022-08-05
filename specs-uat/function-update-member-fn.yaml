@@ -1,0 +1,55 @@
+include:
+- ./func/*
+kind: ArchiveUploadSpec
+name: func-WVl2
+
+---
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  creationTimestamp: null
+  name: update-member-fn-edaf541d-0d8b-49fe-8dcb-86e010985862
+  namespace: default
+spec:
+  deployment:
+    checksum: {}
+  environment:
+    name: update-member-env
+    namespace: default
+  source:
+    checksum: {}
+    type: url
+    url: archive://func-WVl2
+status:
+  buildstatus: pending
+  lastUpdateTimestamp: "2022-08-05T18:48:04Z"
+
+---
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: update-member-fn
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: newdeploy
+      MaxScale: 1
+      MinScale: 1
+      SpecializationTimeout: 120
+      TargetCPUPercent: 80
+    StrategyType: execution
+  concurrency: 500
+  environment:
+    name: update-member-env
+    namespace: default
+  functionTimeout: 60
+  idletimeout: 120
+  package:
+    functionName: main.update_exchange_member
+    packageref:
+      name: update-member-fn-edaf541d-0d8b-49fe-8dcb-86e010985862
+      namespace: default
+  requestsPerPod: 1
+  resources: {}
