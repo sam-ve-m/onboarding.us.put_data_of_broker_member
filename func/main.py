@@ -15,7 +15,9 @@ from src.domain.exceptions.exceptions import (
     InvalidOnboardingStep,
     ErrorOnDecodeJwt,
     NotSentToPersephone,
-    UniqueIdWasNotUpdate, TransportOnboardingError,
+    UniqueIdWasNotUpdate,
+    TransportOnboardingError,
+    UserWasNotFound,
 )
 
 
@@ -78,6 +80,16 @@ async def update_exchange_member(request_body: Request = request) -> Response:
             code=InternalCode.UNIQUE_ID_WAS_NOT_UPDATED,
             message="Unique Id Was Not Updated"
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
+        return response
+
+    except UserWasNotFound as error:
+        Gladsheim.error(error=error)
+        response = ResponseModel(
+            result=False,
+            success=False,
+            code=InternalCode.USER_WAS_NOT_FOUND,
+            message="Unique Id Was Not Found"
+        ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
     except TransportOnboardingError as error:

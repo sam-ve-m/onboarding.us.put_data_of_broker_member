@@ -31,7 +31,8 @@ class UpdateExchangeMember:
         )
 
         was_updated = await UserRepository.update_user_and_broker_member(
-            jwt_data=jwt_data
+            exchange_member_request=exchange_member_request.exchange_member,
+            unique_id=jwt_data.get_unique_id_from_jwt_payload()
             )
 
         if not was_updated:

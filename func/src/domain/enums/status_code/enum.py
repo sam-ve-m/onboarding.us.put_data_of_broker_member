@@ -10,6 +10,7 @@ class InternalCode(IntEnum):
     INVALID_ONBOARDING_STEP = 49
     TRANSPORT_LAYER_ERROR = 69
     UNIQUE_ID_WAS_NOT_UPDATED = 88
+    USER_WAS_NOT_FOUND = 99
 
     def __repr__(self):
         return self.value

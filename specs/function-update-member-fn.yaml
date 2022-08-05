@@ -1,35 +1,35 @@
 include:
 - ./func/*
 kind: ArchiveUploadSpec
-name: func-i0BG
+name: func-6EZv
 
 ---
 apiVersion: fission.io/v1
 kind: Package
 metadata:
   creationTimestamp: null
-  name: update-exchange-member-fn-26936f02-f539-42fa-a7f6-547843fe870e
+  name: update-member-fn-06d4c3b7-a4e1-484a-bace-3ecdac272086
   namespace: default
 spec:
   deployment:
     checksum: {}
   environment:
-    name: update-exchange-member-env
+    name: update-member-env
     namespace: default
   source:
     checksum: {}
     type: url
-    url: archive://func-i0BG
+    url: archive://func-6EZv
 status:
   buildstatus: pending
-  lastUpdateTimestamp: "2022-07-22T14:18:45Z"
+  lastUpdateTimestamp: "2022-08-05T12:56:42Z"
 
 ---
 apiVersion: fission.io/v1
 kind: Function
 metadata:
   creationTimestamp: null
-  name: update-exchange-member-fn
+  name: update-member-fn
   namespace: default
 spec:
   InvokeStrategy:
@@ -42,14 +42,14 @@ spec:
     StrategyType: execution
   concurrency: 500
   environment:
-    name: update-exchange-member-env
+    name: update-member-env
     namespace: default
   functionTimeout: 60
   idletimeout: 120
   package:
     functionName: main.update_exchange_member
     packageref:
-      name: update-exchange-member-fn-26936f02-f539-42fa-a7f6-547843fe870e
+      name: update-member-fn-06d4c3b7-a4e1-484a-bace-3ecdac272086
       namespace: default
   requestsPerPod: 1
   resources: {}

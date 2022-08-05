@@ -13,4 +13,5 @@ class OnboardingStepsUsValidator:
 
         if not step_is_valid:
             raise InvalidOnboardingStep
+
         return step_is_valid

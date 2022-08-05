@@ -2,7 +2,7 @@
 from decouple import config
 
 # PROJECT IMPORTS
-from src.domain.models.jwt.response import Jwt
+from src.domain.exceptions.exceptions import UserWasNotFound
 from src.infrastructure.mongo_db.infrastructure import MongoDBInfrastructure
 
 # THIRD PART IMPORTS
@@ -34,18 +34,31 @@ class UserRepository:
             raise ex
 
     @classmethod
-    async def update_user_and_broker_member(cls, jwt_data: Jwt):
+    async def update_user_and_broker_member(
+            cls,
+            unique_id: str,
+            exchange_member_request: bool
+            ):
+        user_filter = {"unique_id": unique_id}
+        exchange_member = {
+            "$set": {
+                "external_exchange_requirements.us.is_exchange_member": exchange_member_request}
+        }
+
         try:
             collection = await cls.__get_collection()
-
-            user_exchange_member_was_updated = await collection.update_one(
-                old={"unique_id":
-                    jwt_data.get_unique_id_from_jwt_payload()},
-                new={"external_exchange_requirements.us.is_exchange_member":
-                    jwt_data.get_exchange_member_from_jwt_payload()},
+            was_updated = await collection.update_one(
+                user_filter, exchange_member
             )
-            return user_exchange_member_was_updated
 
-        except Exception as error:
-            Gladsheim.error(error=error)
+            if not was_updated.matched_count == 1:
+                raise UserWasNotFound
+            return was_updated
+
+        except Exception as ex:
+            Gladsheim.error(
+                error=ex,
+                message="UserRepository::update_user::Failed to update user",
+                query=user_filter,
+            )
             return False

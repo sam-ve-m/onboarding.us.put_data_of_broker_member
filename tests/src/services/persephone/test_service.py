@@ -5,7 +5,7 @@ import pytest
 # PROJECT IMPORTS
 from heimdall_client import Heimdall, HeimdallStatusResponses
 from persephone_client import Persephone
-from src.domain.models.broker_member.base.model import ExchangeMemberRequest
+from func.src.domain.models.broker_member.base.model import ExchangeMemberRequest
 from func.src.services.persephone.service import SendToPersephone
 
 # STUB IMPORTS

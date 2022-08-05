@@ -3,13 +3,13 @@ from unittest.mock import patch, Mock
 import pytest
 
 # PROJECT IMPORTS
-from src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
-from src.domain.models.broker_member.base.model import ExchangeMemberRequest
-from src.repositories.user.repository import UserRepository
-from src.services.persephone.service import SendToPersephone
-from src.services.update_broker_member.service import UpdateExchangeMember
-from src.transport.onboarding_steps_br.onboarding_steps_br import ValidateOnboardingStepsBr
-from src.transport.onboarding_steps_us.onboarding_steps_us import ValidateOnboardingStepsUS
+from func.src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
+from func.src.domain.models.broker_member.base.model import ExchangeMemberRequest
+from func.src.repositories.user.repository import UserRepository
+from func.src.services.persephone.service import SendToPersephone
+from func.src.services.update_broker_member.service import UpdateExchangeMember
+from func.src.transport.onboarding_steps_br.onboarding_steps_br import ValidateOnboardingStepsBr
+from func.src.transport.onboarding_steps_us.onboarding_steps_us import ValidateOnboardingStepsUS
 
 
 get_unique_id_from_jwt_payload = "125458.hagfsdsa"

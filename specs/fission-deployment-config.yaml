@@ -4,4 +4,4 @@
 apiVersion: fission.io/v1
 kind: DeploymentConfig
 name: onboarding-us-put-data-of-broker-member
-uid: b0cd5cf8-cced-4c0e-a479-9778a67c557d
+uid: 4526a54b-ebdf-40df-bbf1-d1b5955122a7

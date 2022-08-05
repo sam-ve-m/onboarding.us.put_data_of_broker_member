@@ -7,6 +7,10 @@ class TransportOnboardingError(Exception):
     msg = "Jormungandr-Onboarding::ValidateOnboardingSteps::error on fetching data from fission steps"
 
 
+class UserWasNotFound(Exception):
+    msg = "Jormungandr-Onboarding::UserRepository::update_user_and_broker_member - user was not found"
+
+
 class InvalidOnboardingStep(Exception):
     msg = "ValidateOnboardingSteps.onboarding_step_validator::you're not in this step"
 
