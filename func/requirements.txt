@@ -7,5 +7,3 @@ etria_logger==0.1.10
 persephone-client==1.4.2
 etria-logger==0.1.10
 aioboto3==9.6.0
-                                        ErrorOnGettingDataFromStepsBr,
-                                        ErrorOnGettingDataFromStepsUs

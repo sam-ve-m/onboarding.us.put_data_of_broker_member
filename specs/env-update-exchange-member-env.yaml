@@ -59,5 +59,4 @@ spec:
               value: "users"
             - name: MONGODB_JWT_COLLECTION
               value: "jwts"
-
   version: 2
