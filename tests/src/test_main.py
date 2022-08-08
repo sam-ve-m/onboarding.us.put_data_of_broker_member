@@ -14,11 +14,12 @@ from tests.src.main_stub import request_body_stub
 
 
 @pytest.mark.asyncio
-@patch.object(UpdateExchangeMember, "update_exchange_member_us", return_value=True)
+@patch("src.services.update_broker_member.service.UpdateExchangeMember.update_exchange_member_us", return_value=True)
 @patch.object(Heimdall, "decode_payload", return_value=(decoded_jwt_stub, HeimdallStatusResponses.SUCCESS))
 async def test_when_sending_right_params_to_update_exchange_member_time_then_return_the_expected(
-        mock_decode_jwt_from_request,
-        mock_decode_payload
+        mock_decode_payload,
+        mock_decode_jwt_from_request
+
 ):
     app = Flask(__name__)
     with app.test_request_context(
@@ -32,11 +33,12 @@ async def test_when_sending_right_params_to_update_exchange_member_time_then_ret
 
 
 @pytest.mark.asyncio
+@patch("src.services.update_broker_member.service.UpdateExchangeMember.update_exchange_member_us", return_value=True)
 @patch.object(Heimdall, "decode_payload", return_value=(None, HeimdallStatusResponses.INVALID_TOKEN))
-@patch.object(UpdateExchangeMember, "update_exchange_member_us", return_value=True)
 async def test_when_sending_invalid_jwt_to_update_exchange_member_time_then_raise_error(
-        mock_decode_jwt_from_request,
-        mock_update_exchange_member_us
+        mock_update_exchange_member_us,
+        mock_decode_jwt_from_request
+
 ):
     app = Flask(__name__)
     with app.test_request_context(

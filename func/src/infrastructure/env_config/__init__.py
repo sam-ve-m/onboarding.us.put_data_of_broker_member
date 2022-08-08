@@ -9,7 +9,7 @@ SYSTEM = platform.system()
 
 
 def get_config(base_path: str) -> Config:
-    path = os.path.join(base_path, "opt", "envs", "update_market_experience_time", ".env.example")
+    path = os.path.join(base_path, "opt", "envs", "update_market_experience_time", ".env")
     path = str(path)
     return Config(RepositoryEnv(path))
 
