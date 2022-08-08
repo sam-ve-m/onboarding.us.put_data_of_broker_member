@@ -6,7 +6,6 @@ from heimdall_client import Heimdall, HeimdallStatusResponses
 from werkzeug.datastructures import Headers
 
 from func.main import update_exchange_member
-from func.src.services.update_broker_member.service import UpdateExchangeMember
 
 # STUB IMPORTS
 from tests.src.stub_service import decoded_jwt_stub
