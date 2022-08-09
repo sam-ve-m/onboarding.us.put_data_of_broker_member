@@ -53,7 +53,7 @@ class UserRepository:
 
             if not was_updated.matched_count == 1:
                 raise UserWasNotFound
-            return was_updated
+            return bool(was_updated)
 
         except Exception as ex:
             Gladsheim.error(
