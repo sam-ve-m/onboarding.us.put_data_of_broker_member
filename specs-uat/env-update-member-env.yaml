@@ -24,10 +24,6 @@ spec:
               value: "http://fission.dev-lionx.com.br/onboarding/steps_br"
             - name: US_BASE_URL
               value: "http://fission.dev-lionx.com.br/onboarding/steps_us"
-            - name: PERSEPHONE_QUEUE_HOST
-              value: "172.30.19.32"
-            - name: PERSEPHONE_QUEUE_PORT
-              value: "9092"
             - name: PERSEPHONE_TOPIC
               value: "thebes.sphinx_persephone.topic"
             - name: PERSEPHONE_TOPIC_USER
@@ -35,7 +31,7 @@ spec:
             - name: PERSEPHONE_TOPIC_AUTHENTICATION
               value: "sphinx_persephone.user.authentication"
             - name: PERSEPHONE_KAFKA_BROKERS
-              value: "172.30.19.32:9092"
+              value: "cluster-kafka-bootstrap.kafka.svc.cluster.local:9092"
             - name: HEIMDALL_FILE_BUCKET_NAME
               value: "heimdall_rsa"
             - name: HEIMDALL_AWS_ACCESS_KEY_ID
