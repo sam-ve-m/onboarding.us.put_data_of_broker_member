@@ -21,9 +21,9 @@ spec:
             - name: ASGI_FRAMEWORK
               value: "HYPERCORN"
             - name: BR_BASE_URL
-              value: "http://fission.dev-lionx.com.br/onboarding/steps_br"
+              value: "http://router.fission.svc.cluster.local/onboarding/steps_br"
             - name: US_BASE_URL
-              value: "http://fission.dev-lionx.com.br/onboarding/steps_us"
+              value: "http://router.fission.svc.cluster.local/onboarding/steps_us"
             - name: PERSEPHONE_TOPIC
               value: "thebes.sphinx_persephone.topic"
             - name: PERSEPHONE_TOPIC_USER
