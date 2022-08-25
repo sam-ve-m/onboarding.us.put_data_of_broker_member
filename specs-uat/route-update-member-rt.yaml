@@ -14,10 +14,10 @@ spec:
   ingressconfig:
     annotations: null
     host: '*'
-    path: /onboarding/broker_member_member
+    path: /onboarding/broker_member
     tls: ""
   method: ""
   methods:
   - PUT
   prefix: ""
-  relativeurl: /onboarding/broker_member_member
+  relativeurl: /onboarding/broker_member
