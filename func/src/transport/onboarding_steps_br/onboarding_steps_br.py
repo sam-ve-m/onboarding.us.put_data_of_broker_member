@@ -6,7 +6,7 @@ from decouple import config
 from etria_logger import Gladsheim
 
 # PROJECT IMPORTS
-from src.domain.exceptions.exceptions import TransportOnboardingError
+from src.domain.exceptions.exceptions import TransportOnboardingError, InvalidOnboardingStep
 from src.domain.models.jwt.response import Jwt
 from src.domain.validator.onboarding_steps_br.validator import OnboardingStepsBrValidator
 
@@ -28,6 +28,10 @@ class ValidateOnboardingStepsBr:
                     )
 
                     return step_is_valid
+
+        except InvalidOnboardingStep as error:
+            Gladsheim.error(error=error, message="User in invalid step")
+            raise error
 
         except Exception as error:
             Gladsheim.error(error=error)

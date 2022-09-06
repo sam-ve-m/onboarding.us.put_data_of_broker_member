@@ -1,12 +1,14 @@
 # STANDARD IMPORTS
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, MagicMock
 import pytest
+from decouple import Config
 
 # PROJECT IMPORTS
 from heimdall_client import Heimdall, HeimdallStatusResponses
 from persephone_client import Persephone
 from func.src.domain.models.broker_member.base.model import ExchangeMemberRequest
 from func.src.services.persephone.service import SendToPersephone
+from src.domain.exceptions.exceptions import NotSentToPersephone
 
 # STUB IMPORTS
 from tests.src.stub_service import decoded_jwt_stub
@@ -28,11 +30,12 @@ async def test_register_user_exchange_member_log_when_sending_right_params_then_
 
 
 @pytest.mark.asyncio
+@patch.object(Config, "__call__")
 @patch.object(Persephone, "send_to_persephone", return_value=[False, False])
 async def test_register_user_exchange_member_log_when_mocking_false_then_raise_the_expected_error(
-        mock_send_to_persephone
+        mock_send_to_persephone, mocked_env
 ):
-    with pytest.raises(Exception):
+    with pytest.raises(NotSentToPersephone):
         await SendToPersephone.register_user_exchange_member_log(
-            jwt_data=None,
-            exchange_member_request=None)
+            jwt_data=MagicMock(),
+            exchange_member_request=MagicMock())
