@@ -45,17 +45,15 @@ async def update_exchange_member(request_body: Request = request) -> Response:
     except InvalidOnboardingStep as error:
         Gladsheim.error(error=error)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.INVALID_ONBOARDING_STEP,
-            message="Invalid Onboarding Step"
+            message="User in invalid onboarding step"
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
     except ErrorOnDecodeJwt as error:
         Gladsheim.error(error=error)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.JWT_INVALID,
             message="Error On Decoding JWT"
@@ -65,7 +63,6 @@ async def update_exchange_member(request_body: Request = request) -> Response:
     except NotSentToPersephone as error:
         Gladsheim.error(error=error)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.NOT_SENT_TO_PERSEPHONE,
             message="Not Sent to Persephone"
@@ -75,7 +72,6 @@ async def update_exchange_member(request_body: Request = request) -> Response:
     except UniqueIdWasNotUpdate as error:
         Gladsheim.error(error=error)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.UNIQUE_ID_WAS_NOT_UPDATED,
             message="Unique Id Was Not Updated"
@@ -85,7 +81,6 @@ async def update_exchange_member(request_body: Request = request) -> Response:
     except UserWasNotFound as error:
         Gladsheim.error(error=error)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.USER_WAS_NOT_FOUND,
             message="Unique Id Was Not Found"
@@ -95,7 +90,6 @@ async def update_exchange_member(request_body: Request = request) -> Response:
     except TransportOnboardingError as error:
         Gladsheim.error(error=error)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.TRANSPORT_LAYER_ERROR,
             message="Transport Layer Error - not able to fetch data from transport response"
@@ -105,7 +99,6 @@ async def update_exchange_member(request_body: Request = request) -> Response:
     except Exception as error:
         Gladsheim.error(error=error)
         response = ResponseModel(
-            result=False,
             success=False,
             code=InternalCode.INTERNAL_SERVER_ERROR,
             message="Unexpected error occurred"
