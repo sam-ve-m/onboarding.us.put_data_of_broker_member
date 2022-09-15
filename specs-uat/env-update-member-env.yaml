@@ -10,7 +10,6 @@ spec:
     image: nexus.sigame.com.br/fission-builder-3.8:0.0.1
   imagepullsecret: "nexus-v3"
   keeparchive: false
-  poolsize: 3
   resources: {}
   runtime:
     image: nexus.sigame.com.br/fission-async:0.1.6
@@ -62,3 +61,4 @@ spec:
               value: "users"
             - name: MONGODB_JWT_COLLECTION
               value: "jwts"
+  version: 3
