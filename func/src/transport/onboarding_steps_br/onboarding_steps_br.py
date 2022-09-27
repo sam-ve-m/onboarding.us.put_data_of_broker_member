@@ -35,4 +35,4 @@ class ValidateOnboardingStepsBr:
 
         except Exception as error:
             Gladsheim.error(error=error)
-            raise TransportOnboardingError
+            raise TransportOnboardingError()
