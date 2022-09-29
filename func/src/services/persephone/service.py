@@ -1,0 +1,37 @@
+# THIRD PARTY IMPORTS
+from decouple import config
+from etria_logger import Gladsheim
+from persephone_client import Persephone
+
+# PROJECT IMPORTS
+from src.domain.enums.persephone_queue.enum import PersephoneQueue
+from src.domain.exceptions.exceptions import NotSentToPersephone
+from src.domain.models.broker_member.base.model import ExchangeMemberToPersephone, ExchangeMemberRequest
+from src.domain.models.jwt.response import Jwt
+
+
+class SendToPersephone:
+
+    @classmethod
+    async def register_user_exchange_member_log(
+            cls,
+            jwt_data: Jwt,
+            exchange_member_request: ExchangeMemberRequest
+    ):
+
+        (
+            sent_to_persephone,
+            status_sent_to_persephone,
+        ) = await Persephone.send_to_persephone(
+            topic=config("PERSEPHONE_TOPIC_USER"),
+            partition=PersephoneQueue.USER_EXCHANGE_MEMBER_IN_US.value,
+            message=ExchangeMemberToPersephone.exchange_member_schema(
+                exchange_member=exchange_member_request.exchange_member,
+                unique_id=jwt_data.get_unique_id_from_jwt_payload(),
+            ),
+            schema_name="user_exchange_member_us_schema",
+        )
+        if sent_to_persephone is False:
+            Gladsheim.error(
+                message="SendToPersephone::register_user_exchange_member_log::Error on trying to register log")
+            raise NotSentToPersephone
