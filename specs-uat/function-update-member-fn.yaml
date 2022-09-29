@@ -51,5 +51,5 @@ spec:
     packageref:
       name: update-member-fn-edaf541d-0d8b-49fe-8dcb-86e010985862
       namespace: default
-  requestsPerPod: 1
+  requestsPerPod: 10000
   resources: {}
