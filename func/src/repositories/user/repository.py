@@ -45,16 +45,11 @@ class UserRepository:
                 "external_exchange_requirements.us.is_exchange_member": exchange_member_request}
         }
 
+        collection = await cls.__get_collection()
         try:
-            collection = await cls.__get_collection()
             was_updated = await collection.update_one(
                 user_filter, exchange_member
             )
-
-            if not was_updated.matched_count == 1:
-                raise UserWasNotFound
-            return bool(was_updated)
-
         except Exception as ex:
             Gladsheim.error(
                 error=ex,
@@ -62,3 +57,7 @@ class UserRepository:
                 query=user_filter,
             )
             return False
+
+        if not was_updated.matched_count == 1:
+            raise UserWasNotFound
+        return bool(was_updated)

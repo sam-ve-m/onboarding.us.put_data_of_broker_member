@@ -34,4 +34,4 @@ class SendToPersephone:
         if sent_to_persephone is False:
             Gladsheim.error(
                 message="SendToPersephone::register_user_exchange_member_log::Error on trying to register log")
-            raise NotSentToPersephone
+            raise NotSentToPersephone()
