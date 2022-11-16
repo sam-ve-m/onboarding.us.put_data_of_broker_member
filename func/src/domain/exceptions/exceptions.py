@@ -23,3 +23,11 @@ class NotSentToPersephone(Exception):
 
 class UniqueIdWasNotUpdate(Exception):
     msg = "UpdateMarketTimeExperience.update_market_time_experience::was_updated:: The user was not updated"
+
+
+class DeviceInfoRequestFailed(Exception):
+    msg = "Error trying to get device info"
+
+
+class DeviceInfoNotSupplied(Exception):
+    msg = "Device info not supplied"
