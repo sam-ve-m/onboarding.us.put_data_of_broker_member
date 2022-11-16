@@ -27,15 +27,14 @@ async def update_exchange_member() -> flask.Response:
         exchange_member = ExchangeMemberRequest(**flask.request.json)
 
         service_response = await UpdateExchangeMember.update_exchange_member_us(
-            jwt_data=jwt_data,
-            exchange_member_request=exchange_member
+            jwt_data=jwt_data, exchange_member_request=exchange_member
         )
 
         response = ResponseModel(
             success=True,
             code=InternalCode.SUCCESS.value,
             message="The Broker Member US Data Was Successfully Updated",
-            result=service_response
+            result=service_response,
         ).build_http_response(status=HTTPStatus.OK)
         return response
 
@@ -44,7 +43,7 @@ async def update_exchange_member() -> flask.Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.INVALID_ONBOARDING_STEP.value,
-            message="User in invalid onboarding step"
+            message="User in invalid onboarding step",
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
@@ -53,7 +52,7 @@ async def update_exchange_member() -> flask.Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.JWT_INVALID.value,
-            message="Error On Decoding JWT"
+            message="Error On Decoding JWT",
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
@@ -62,7 +61,7 @@ async def update_exchange_member() -> flask.Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.NOT_SENT_TO_PERSEPHONE.value,
-            message="Not Sent to Persephone"
+            message="Not Sent to Persephone",
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
@@ -71,7 +70,7 @@ async def update_exchange_member() -> flask.Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.UNIQUE_ID_WAS_NOT_UPDATED.value,
-            message="Unique Id Was Not Updated"
+            message="Unique Id Was Not Updated",
         ).build_http_response(status=HTTPStatus.UNAUTHORIZED)
         return response
 
@@ -80,7 +79,7 @@ async def update_exchange_member() -> flask.Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.USER_WAS_NOT_FOUND.value,
-            message="Unique Id Was Not Found"
+            message="Unique Id Was Not Found",
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
@@ -89,7 +88,7 @@ async def update_exchange_member() -> flask.Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.TRANSPORT_LAYER_ERROR.value,
-            message="Transport Layer Error - not able to fetch data from transport response"
+            message="Transport Layer Error - not able to fetch data from transport response",
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response
 
@@ -98,6 +97,6 @@ async def update_exchange_member() -> flask.Response:
         response = ResponseModel(
             success=False,
             code=InternalCode.INTERNAL_SERVER_ERROR.value,
-            message="Unexpected error occurred"
+            message="Unexpected error occurred",
         ).build_http_response(status=HTTPStatus.INTERNAL_SERVER_ERROR)
         return response

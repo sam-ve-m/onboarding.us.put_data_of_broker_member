@@ -22,12 +22,11 @@ stub_exchange_member_request = MagicMock()
 @patch.object(ExchangeMemberToPersephone, "exchange_member_schema")
 @patch.object(Gladsheim, "error")
 async def test_register_user_exchange_member_log(
-        mocked_logger, mocked_model, mocked_env, mocked_transp
+    mocked_logger, mocked_model, mocked_env, mocked_transp
 ):
     mocked_transp.return_value = True, None
     await SendToPersephone.register_user_exchange_member_log(
-        stub_jwt_data,
-        stub_exchange_member_request
+        stub_jwt_data, stub_exchange_member_request
     )
     mocked_transp.assert_called_once_with(
         topic=mocked_env.return_value,
@@ -48,13 +47,12 @@ async def test_register_user_exchange_member_log(
 @patch.object(ExchangeMemberToPersephone, "exchange_member_schema")
 @patch.object(Gladsheim, "error")
 async def test_register_user_exchange_member_log_rasing(
-        mocked_logger, mocked_model, mocked_env, mocked_transp
+    mocked_logger, mocked_model, mocked_env, mocked_transp
 ):
     mocked_transp.return_value = False, None
     with pytest.raises(NotSentToPersephone):
         await SendToPersephone.register_user_exchange_member_log(
-            stub_jwt_data,
-            stub_exchange_member_request
+            stub_jwt_data, stub_exchange_member_request
         )
     mocked_transp.assert_called_once_with(
         topic=mocked_env.return_value,
@@ -67,4 +65,5 @@ async def test_register_user_exchange_member_log_rasing(
         unique_id=stub_jwt_data.get_unique_id_from_jwt_payload.return_value,
     )
     mocked_logger.assert_called_once_with(
-        message="SendToPersephone::register_user_exchange_member_log::Error on trying to register log")
+        message="SendToPersephone::register_user_exchange_member_log::Error on trying to register log"
+    )

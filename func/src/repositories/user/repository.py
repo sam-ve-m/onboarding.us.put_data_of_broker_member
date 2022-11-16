@@ -35,21 +35,18 @@ class UserRepository:
 
     @classmethod
     async def update_user_and_broker_member(
-            cls,
-            unique_id: str,
-            exchange_member_request: bool
-            ):
+        cls, unique_id: str, exchange_member_request: bool
+    ):
         user_filter = {"unique_id": unique_id}
         exchange_member = {
             "$set": {
-                "external_exchange_requirements.us.is_exchange_member": exchange_member_request}
+                "external_exchange_requirements.us.is_exchange_member": exchange_member_request
+            }
         }
 
         collection = await cls.__get_collection()
         try:
-            was_updated = await collection.update_one(
-                user_filter, exchange_member
-            )
+            was_updated = await collection.update_one(user_filter, exchange_member)
         except Exception as ex:
             Gladsheim.error(
                 error=ex,

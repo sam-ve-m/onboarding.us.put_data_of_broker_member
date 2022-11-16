@@ -6,17 +6,17 @@ from persephone_client import Persephone
 # PROJECT IMPORTS
 from src.domain.enums.persephone_queue.enum import PersephoneQueue
 from src.domain.exceptions.exceptions import NotSentToPersephone
-from src.domain.models.broker_member.base.model import ExchangeMemberToPersephone, ExchangeMemberRequest
+from src.domain.models.broker_member.base.model import (
+    ExchangeMemberToPersephone,
+    ExchangeMemberRequest,
+)
 from src.domain.models.jwt.response import Jwt
 
 
 class SendToPersephone:
-
     @classmethod
     async def register_user_exchange_member_log(
-            cls,
-            jwt_data: Jwt,
-            exchange_member_request: ExchangeMemberRequest
+        cls, jwt_data: Jwt, exchange_member_request: ExchangeMemberRequest
     ):
 
         (
@@ -33,5 +33,6 @@ class SendToPersephone:
         )
         if sent_to_persephone is False:
             Gladsheim.error(
-                message="SendToPersephone::register_user_exchange_member_log::Error on trying to register log")
+                message="SendToPersephone::register_user_exchange_member_log::Error on trying to register log"
+            )
             raise NotSentToPersephone()
