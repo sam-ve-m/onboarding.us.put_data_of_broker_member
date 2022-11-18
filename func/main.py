@@ -25,11 +25,12 @@ async def update_exchange_member() -> flask.Response:
     try:
         x_thebes_answer = flask.request.headers.get("x-thebes-answer")
         x_device_info = flask.request.headers.get("x-device-info")
+        request_body = flask.request.json
 
         jwt_data = Jwt(jwt=x_thebes_answer)
         await jwt_data()
         device_info = await DeviceSecurity.get_device_info(x_device_info)
-        exchange_member = ExchangeMemberRequest(**flask.request.json)
+        exchange_member = ExchangeMemberRequest(**request_body)
 
         service_response = await UpdateExchangeMember.update_exchange_member_us(
             jwt_data=jwt_data,
