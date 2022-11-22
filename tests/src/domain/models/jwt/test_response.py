@@ -12,8 +12,12 @@ from src.domain.models.jwt.response import Jwt
 dummy_jwt = MagicMock()
 
 
-@patch.object(Heimdall, "decode_payload", return_value=(dummy_jwt, HeimdallStatusResponses.SUCCESS))
-@pytest_steps.test_steps('decode_success', 'get_unique_id')
+@patch.object(
+    Heimdall,
+    "decode_payload",
+    return_value=(dummy_jwt, HeimdallStatusResponses.SUCCESS),
+)
+@pytest_steps.test_steps("decode_success", "get_unique_id")
 def test_jwt(mocked_decoder):
     jwt = Jwt(dummy_jwt)
     asyncio.run(jwt())
