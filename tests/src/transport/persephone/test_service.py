@@ -5,11 +5,11 @@ from decouple import AutoConfig
 from etria_logger import Gladsheim
 from persephone_client import Persephone
 
-from src.domain.enums.persephone_queue.enum import PersephoneQueue
-from src.domain.exceptions.exceptions import NotSentToPersephone
-from src.domain.models.broker_member.base.model import ExchangeMemberToPersephone
-from src.domain.models.device_info.model import DeviceInfo
-from src.transport.persephone.service import SendToPersephone
+from func.src.domain.enums.persephone_queue.enum import PersephoneQueue
+from func.src.domain.exceptions.exceptions import NotSentToPersephone
+from func.src.domain.models.broker_member.base.model import ExchangeMemberToPersephone
+from func.src.domain.models.device_info.model import DeviceInfo
+from func.src.transport.persephone.service import SendToPersephone
 
 stub_jwt_data = MagicMock()
 stub_exchange_member_request = MagicMock()

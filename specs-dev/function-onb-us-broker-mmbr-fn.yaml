@@ -1,35 +1,35 @@
 include:
-- ./func/*
+- fission.py
 kind: ArchiveUploadSpec
-name: func-6EZv
+name: fission-py-SH8c
 
 ---
 apiVersion: fission.io/v1
 kind: Package
 metadata:
   creationTimestamp: null
-  name: update-member-fn-06d4c3b7-a4e1-484a-bace-3ecdac272086
+  name: onb-us-broker-mmbr-fn-29ff7804-45e2-4d5b-9bea-8e5efe4a4516
   namespace: default
 spec:
   deployment:
     checksum: {}
+    type: url
+    url: archive://fission-py-SH8c
   environment:
-    name: update-member-env
+    name: onb-us-broker-mmbr-env
     namespace: default
   source:
     checksum: {}
-    type: url
-    url: archive://func-6EZv
 status:
-  buildstatus: pending
-  lastUpdateTimestamp: "2022-08-05T12:56:42Z"
+  buildstatus: none
+  lastUpdateTimestamp: "2023-01-06T13:08:12Z"
 
 ---
 apiVersion: fission.io/v1
 kind: Function
 metadata:
   creationTimestamp: null
-  name: update-member-fn
+  name: onb-us-broker-mmbr-fn
   namespace: default
 spec:
   InvokeStrategy:
@@ -38,18 +38,24 @@ spec:
       MaxScale: 3
       MinScale: 1
       SpecializationTimeout: 120
-      TargetCPUPercent: 80
+      TargetCPUPercent: 0
+      hpaMetrics:
+      - resource:
+          name: cpu
+          target:
+            averageUtilization: 80
+            type: Utilization
+        type: Resource
     StrategyType: execution
   concurrency: 500
   environment:
-    name: update-member-env
+    name: onb-us-broker-mmbr-env
     namespace: default
   functionTimeout: 60
   idletimeout: 120
   package:
-    functionName: main.update_exchange_member
     packageref:
-      name: update-member-fn-06d4c3b7-a4e1-484a-bace-3ecdac272086
+      name: onb-us-broker-mmbr-fn-29ff7804-45e2-4d5b-9bea-8e5efe4a4516
       namespace: default
   requestsPerPod: 10000
   resources: {}
