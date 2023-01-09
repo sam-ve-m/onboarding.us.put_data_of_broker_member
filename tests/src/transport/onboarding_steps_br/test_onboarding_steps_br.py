@@ -5,18 +5,18 @@ import pytest
 from decouple import AutoConfig
 from etria_logger import Gladsheim
 
-from src.domain.exceptions.exceptions import (
+from func.src.domain.exceptions.exceptions import (
     TransportOnboardingError,
     InvalidOnboardingStep,
 )
-from src.domain.validator.onboarding_steps_br.validator import (
+from func.src.domain.validator.onboarding_steps_br.validator import (
     OnboardingStepsBrValidator,
 )
 
 dummy_env = "dummy env"
 
 with patch.object(AutoConfig, "__call__", return_value=dummy_env):
-    from src.transport.onboarding_steps_br.onboarding_steps_br import (
+    from func.src.transport.onboarding_steps_br.onboarding_steps_br import (
         ValidateOnboardingStepsBr,
     )
 

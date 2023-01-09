@@ -2,14 +2,14 @@ from decouple import config
 from etria_logger import Gladsheim
 from persephone_client import Persephone
 
-from src.domain.enums.persephone_queue.enum import PersephoneQueue
-from src.domain.exceptions.exceptions import NotSentToPersephone
-from src.domain.models.broker_member.base.model import (
+from func.src.domain.enums.persephone_queue.enum import PersephoneQueue
+from func.src.domain.exceptions.exceptions import NotSentToPersephone
+from func.src.domain.models.broker_member.base.model import (
     ExchangeMemberToPersephone,
     ExchangeMemberRequest,
 )
-from src.domain.models.device_info.model import DeviceInfo
-from src.domain.models.jwt.response import Jwt
+from func.src.domain.models.device_info.model import DeviceInfo
+from func.src.domain.models.jwt.response import Jwt
 
 
 class SendToPersephone:

@@ -1,17 +1,17 @@
 import asyncio
 
-from src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
-from src.domain.models.broker_member.base.model import ExchangeMemberRequest
-from src.domain.models.device_info.model import DeviceInfo
-from src.domain.models.jwt.response import Jwt
-from src.repositories.user.repository import UserRepository
-from src.transport.onboarding_steps_br.onboarding_steps_br import (
+from func.src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
+from func.src.domain.models.broker_member.base.model import ExchangeMemberRequest
+from func.src.domain.models.device_info.model import DeviceInfo
+from func.src.domain.models.jwt.response import Jwt
+from func.src.repositories.user.repository import UserRepository
+from func.src.transport.onboarding_steps_br.onboarding_steps_br import (
     ValidateOnboardingStepsBr,
 )
-from src.transport.onboarding_steps_us.onboarding_steps_us import (
+from func.src.transport.onboarding_steps_us.onboarding_steps_us import (
     ValidateOnboardingStepsUS,
 )
-from src.transport.persephone.service import SendToPersephone
+from func.src.transport.persephone.service import SendToPersephone
 
 
 class UpdateExchangeMember:

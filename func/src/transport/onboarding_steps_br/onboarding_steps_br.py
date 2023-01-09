@@ -6,12 +6,12 @@ from decouple import config
 from etria_logger import Gladsheim
 
 # PROJECT IMPORTS
-from src.domain.exceptions.exceptions import (
+from func.src.domain.exceptions.exceptions import (
     TransportOnboardingError,
     InvalidOnboardingStep,
 )
-from src.domain.models.jwt.response import Jwt
-from src.domain.validator.onboarding_steps_br.validator import (
+from func.src.domain.models.jwt.response import Jwt
+from func.src.domain.validator.onboarding_steps_br.validator import (
     OnboardingStepsBrValidator,
 )
 

@@ -2,8 +2,8 @@
 from decouple import config
 
 # PROJECT IMPORTS
-from src.domain.exceptions.exceptions import UserWasNotFound
-from src.infrastructure.mongo_db.infrastructure import MongoDBInfrastructure
+from func.src.domain.exceptions.exceptions import UserWasNotFound
+from func.src.infrastructure.mongo_db.infrastructure import MongoDBInfrastructure
 
 # THIRD PART IMPORTS
 from etria_logger import Gladsheim

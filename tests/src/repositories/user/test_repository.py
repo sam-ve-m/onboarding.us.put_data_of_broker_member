@@ -7,8 +7,8 @@ from unittest.mock import patch, MagicMock, AsyncMock
 dummy_env = "dummy env"
 
 with patch.object(Config, "__call__", return_value=dummy_env):
-    from src.domain.exceptions.exceptions import UserWasNotFound
-    from src.repositories.user.repository import UserRepository
+    from func.src.domain.exceptions.exceptions import UserWasNotFound
+    from func.src.repositories.user.repository import UserRepository
 
 fake_infra = MagicMock()
 fake_collection = AsyncMock()

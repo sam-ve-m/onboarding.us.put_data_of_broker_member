@@ -3,8 +3,8 @@ from http import HTTPStatus
 import flask
 from etria_logger import Gladsheim
 
-from src.domain.enums.status_code.enum import InternalCode
-from src.domain.exceptions.exceptions import (
+from func.src.domain.enums.status_code.enum import InternalCode
+from func.src.domain.exceptions.exceptions import (
     InvalidOnboardingStep,
     ErrorOnDecodeJwt,
     NotSentToPersephone,
@@ -14,11 +14,11 @@ from src.domain.exceptions.exceptions import (
     DeviceInfoRequestFailed,
     DeviceInfoNotSupplied,
 )
-from src.domain.models.broker_member.base.model import ExchangeMemberRequest
-from src.domain.models.jwt.response import Jwt
-from src.domain.models.response.model import ResponseModel
-from src.services.update_broker_member.service import UpdateExchangeMember
-from src.transport.device_info.transport import DeviceSecurity
+from func.src.domain.models.broker_member.base.model import ExchangeMemberRequest
+from func.src.domain.models.jwt.response import Jwt
+from func.src.domain.models.response.model import ResponseModel
+from func.src.services.update_broker_member.service import UpdateExchangeMember
+from func.src.transport.device_info.transport import DeviceSecurity
 
 
 async def update_exchange_member() -> flask.Response:

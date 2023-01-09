@@ -3,19 +3,19 @@ from unittest.mock import MagicMock, patch
 import pytest
 from decouple import Config
 
-from src.domain.models.device_info.model import DeviceInfo
+from func.src.domain.models.device_info.model import DeviceInfo
 
 with patch.object(Config, "__call__", return_value="INFO"):
-    from src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
-    from src.repositories.user.repository import UserRepository
-    from src.services.update_broker_member.service import UpdateExchangeMember
-    from src.transport.onboarding_steps_br.onboarding_steps_br import (
+    from func.src.domain.exceptions.exceptions import UniqueIdWasNotUpdate
+    from func.src.repositories.user.repository import UserRepository
+    from func.src.services.update_broker_member.service import UpdateExchangeMember
+    from func.src.transport.onboarding_steps_br.onboarding_steps_br import (
         ValidateOnboardingStepsBr,
     )
-    from src.transport.onboarding_steps_us.onboarding_steps_us import (
+    from func.src.transport.onboarding_steps_us.onboarding_steps_us import (
         ValidateOnboardingStepsUS,
     )
-    from src.transport.persephone.service import SendToPersephone
+    from func.src.transport.persephone.service import SendToPersephone
 
 dummy_jwt_data = MagicMock()
 dummy_exchange_member_request = MagicMock()

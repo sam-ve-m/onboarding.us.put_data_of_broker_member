@@ -2,8 +2,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from src.domain.exceptions.exceptions import InvalidOnboardingStep
-from src.domain.validator.onboarding_steps_us.validator import (
+from func.src.domain.exceptions.exceptions import InvalidOnboardingStep
+from func.src.domain.validator.onboarding_steps_us.validator import (
     OnboardingStepsUsValidator,
 )
 

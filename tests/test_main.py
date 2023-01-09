@@ -6,7 +6,7 @@ import flask
 import pytest
 from decouple import RepositoryEnv, Config
 
-from src.transport.device_info.transport import DeviceSecurity
+from func.src.transport.device_info.transport import DeviceSecurity
 
 dummy_env = "dummy env"
 
@@ -15,15 +15,15 @@ with patch.object(RepositoryEnv, "__init__", return_value=None):
         with patch.object(Config, "__call__", return_value=dummy_env):
             with patch.object(logging.config, "dictConfig"):
                 from etria_logger import Gladsheim
-                from main import update_exchange_member
-                from src.domain.models.jwt.response import Jwt
-                from src.domain.exceptions.exceptions import *
-                from src.domain.enums.status_code.enum import InternalCode
-                from src.domain.models.response.model import ResponseModel
-                from src.services.update_broker_member.service import (
+                from func.main import update_exchange_member
+                from func.src.domain.models.jwt.response import Jwt
+                from func.src.domain.exceptions.exceptions import *
+                from func.src.domain.enums.status_code.enum import InternalCode
+                from func.src.domain.models.response.model import ResponseModel
+                from func.src.services.update_broker_member.service import (
                     UpdateExchangeMember,
                 )
-                from src.domain.models.broker_member.base.model import (
+                from func.src.domain.models.broker_member.base.model import (
                     ExchangeMemberRequest,
                 )
 

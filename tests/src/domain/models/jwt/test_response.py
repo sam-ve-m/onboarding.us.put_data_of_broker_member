@@ -6,8 +6,8 @@ import pytest_steps
 import pytest
 from unittest.mock import patch, MagicMock
 
-from src.domain.exceptions.exceptions import ErrorOnDecodeJwt
-from src.domain.models.jwt.response import Jwt
+from func.src.domain.exceptions.exceptions import ErrorOnDecodeJwt
+from func.src.domain.models.jwt.response import Jwt
 
 dummy_jwt = MagicMock()
 
